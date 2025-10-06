@@ -31,17 +31,54 @@
         }
 
         body {
-            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'SF Pro Display', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Binance-style glow effect */
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(240, 185, 11, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(240, 185, 11, 0.5); }
+        /* Animated Grid Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(240, 185, 11, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(240, 185, 11, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Radial gradient overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(240, 185, 11, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.1); }
         }
 
 
@@ -53,6 +90,7 @@
             justify-content: center;
             padding: 4rem 4rem;
             position: relative;
+            z-index: 1;
         }
 
         .hero-content {
@@ -71,14 +109,39 @@
 
         .hero-text h1 {
             font-size: 5rem;
-            font-weight: 700;
+            font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
             letter-spacing: -0.03em;
+            background: linear-gradient(135deg, 
+                var(--accent) 0%, 
+                var(--accent-hover) 50%, 
+                var(--accent) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .hero-text h1::after {
+            content: 'SBT Token';
+            position: absolute;
+            left: 0;
+            top: 0;
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            filter: blur(20px);
+            opacity: 0.3;
+            z-index: -1;
         }
 
         .hero-text p {
@@ -106,6 +169,80 @@
             letter-spacing: 0.15em;
             color: var(--text-secondary);
             margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Contract Address Card */
+        .contract-card {
+            margin-top: 2.5rem;
+            padding: 1.8rem;
+            background: rgba(30, 35, 41, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(240, 185, 11, 0.2);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .contract-card:hover {
+            border-color: rgba(240, 185, 11, 0.5);
+            background: rgba(30, 35, 41, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .contract-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .contract-address {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: var(--accent);
+            background: rgba(240, 185, 11, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .contract-address:hover {
+            background: rgba(240, 185, 11, 0.15);
+        }
+
+        .contract-address code {
+            flex: 1;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.05);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
         }
 
 
@@ -141,9 +278,10 @@
             width: 100%;
             aspect-ratio: 1 / 1;
             overflow: visible;
-            background: radial-gradient(circle at center, rgba(240, 185, 11, 0.15), transparent);
+            background: radial-gradient(circle at center, rgba(240, 185, 11, 0.2), rgba(240, 185, 11, 0.05), transparent);
             border: 5px solid var(--accent);
-            border-radius: 50%;
+            border-radius: 8px;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
             box-shadow: 0 0 80px rgba(240, 185, 11, 0.5),
                         0 0 120px rgba(240, 185, 11, 0.3),
                         0 0 160px rgba(240, 185, 11, 0.2);
@@ -155,8 +293,8 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            padding: 3rem;
-            filter: drop-shadow(0 20px 40px rgba(240, 185, 11, 0.4));
+            padding: 2rem;
+            filter: drop-shadow(0 20px 40px rgba(240, 185, 11, 0.5));
             transition: all 0.6s ease;
         }
 
@@ -182,20 +320,30 @@
             color: #000;
             padding: 0.8rem 2.5rem;
             border-radius: 30px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 700;
-            box-shadow: 0 6px 20px rgba(240, 185, 11, 0.5);
+            letter-spacing: 0.2em;
+            font-weight: 800;
+            box-shadow: 0 8px 24px rgba(240, 185, 11, 0.6),
+                        0 4px 12px rgba(0, 0, 0, 0.3);
             z-index: 10;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .featured-label:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 12px 32px rgba(240, 185, 11, 0.8),
+                        0 6px 16px rgba(0, 0, 0, 0.4);
         }
 
         /* Feature Showcase Section */
         .feature-showcase {
-            padding: 6rem 4rem;
+            padding: 6rem 4rem 8rem;
             max-width: 1600px;
             margin: 0 auto;
             position: relative;
+            z-index: 1;
         }
 
         .showcase-container {
@@ -204,17 +352,34 @@
             max-width: 1200px;
             margin: 0 auto;
             overflow: hidden;
-            border-radius: 20px;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 60px rgba(240, 185, 11, 0.4),
-                        0 20px 60px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s ease;
+            border-radius: 24px;
+            border: 2px solid rgba(240, 185, 11, 0.3);
+            box-shadow: 0 0 60px rgba(240, 185, 11, 0.3),
+                        0 20px 60px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(30, 35, 41, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .showcase-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(240, 185, 11, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .showcase-container:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 80px rgba(240, 185, 11, 0.6),
-                        0 30px 80px rgba(0, 0, 0, 0.6);
+            transform: translateY(-12px);
+            border-color: rgba(240, 185, 11, 0.6);
+            box-shadow: 0 0 100px rgba(240, 185, 11, 0.5),
+                        0 35px 80px rgba(0, 0, 0, 0.5),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
         .showcase-container img {
@@ -234,14 +399,18 @@
             left: 2rem;
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
             color: #000;
-            padding: 1rem 2rem;
+            padding: 0.9rem 1.8rem;
             border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 0.95rem;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            box-shadow: 0 8px 24px rgba(240, 185, 11, 0.5);
+            box-shadow: 0 8px 28px rgba(240, 185, 11, 0.6),
+                        0 4px 12px rgba(0, 0, 0, 0.3);
             animation: float 3s ease-in-out infinite;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            z-index: 2;
+            backdrop-filter: blur(5px);
         }
 
         .showcase-info {
@@ -339,6 +508,15 @@
         }
 
         @media (max-width: 768px) {
+            body::after {
+                width: 500px;
+                height: 500px;
+            }
+
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+
             .hero-text h1 {
                 font-size: 2.5rem;
             }
@@ -346,6 +524,24 @@
             .hero-description {
                 font-size: 0.9rem;
                 padding: 1rem;
+            }
+
+            .contract-card {
+                padding: 1.2rem;
+            }
+
+            .contract-address {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .contract-address code {
+                font-size: 0.8rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .copy-btn {
+                width: 100%;
             }
 
             .showcase-badge {
@@ -365,6 +561,10 @@
 
             .showcase-info p {
                 font-size: 0.9rem;
+            }
+
+            .feature-showcase {
+                padding: 4rem 1.5rem 5rem;
             }
 
         }
@@ -396,6 +596,15 @@
                 <div class="subtitle">The Future of Meme Tokens</div>
                 <h1>SBT<br>Token</h1>
                 <p class="hero-description">CZ's "Giggle" White Paper details how he plans to develop "Soul Bound Tokens" - these tokens will be bound to an individual's soul.</p>
+                <p class="hero-description" style="margin-top: 1.5rem; background: rgba(14, 203, 129, 0.08); border-left-color: var(--green);">The account-bound (BAB) token launched by BN official, the first soulbound token on the BNB chain, was introduced in 2022.</p>
+                
+                <div class="contract-card">
+                    <div class="contract-label">Contract Address (CA)</div>
+                    <div class="contract-address" onclick="copyContract()">
+                        <code id="contract-text">soon</code>
+                        <button class="copy-btn" id="copy-btn">Copy</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -412,6 +621,24 @@
     </section>
 
     <script>
+        // Copy Contract Address
+        function copyContract() {
+            const contractText = document.getElementById('contract-text').textContent;
+            const copyBtn = document.getElementById('copy-btn');
+            
+            navigator.clipboard.writeText(contractText).then(() => {
+                copyBtn.textContent = '✓ Copied!';
+                copyBtn.style.background = 'var(--green)';
+                
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                    copyBtn.style.background = 'var(--accent)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
         // Smooth scroll animation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -431,7 +658,7 @@
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero-content');
             if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.1}px)`;
+                hero.style.transform = `translateY(${scrolled * 0.05}px)`;
             }
         });
 
@@ -441,6 +668,15 @@
                 this.style.background = '#1a1a1a';
                 this.alt = '图片加载中...';
             });
+        });
+
+        // Add entrance animation
+        window.addEventListener('load', () => {
+            document.querySelector('.hero').style.opacity = '0';
+            setTimeout(() => {
+                document.querySelector('.hero').style.transition = 'opacity 1s ease';
+                document.querySelector('.hero').style.opacity = '1';
+            }, 100);
         });
     </script>
 </body>
