@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/mh",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/mh/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
+
