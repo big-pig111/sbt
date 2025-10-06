@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/mh/">
+    <title>SBT - The Next Generation Meme Token</title>
+    <meta name="description" content="SBT Token - Soul Bound Tokens from CZ's Giggle White Paper. The future of meme tokens.">
+    <meta property="og:title" content="SBT Token - Soul Bound Tokens">
+    <meta property="og:description" content="CZ's Giggle White Paper details how he plans to develop Soul Bound Tokens">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://junction.link/mh/">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0B0E11;
+            --bg-secondary: #181A20;
+            --bg-tertiary: #1E2329;
+            --text-primary: #EAECEF;
+            --text-secondary: #848E9C;
+            --accent: #F0B90B;
+            --accent-hover: #FCD535;
+            --green: #0ECB81;
+            --red: #F6465D;
+            --border: #2B3139;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Binance-style glow effect */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(240, 185, 11, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(240, 185, 11, 0.5); }
+        }
+
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            padding-left: 2rem;
+            order: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-description {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding: 1.5rem;
+            background: rgba(240, 185, 11, 0.08);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            font-style: italic;
+            margin-top: 2rem;
+        }
+
+        .hero-text .subtitle {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+
+        /* Featured Logo Container */
+        .featured-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            justify-self: start;
+            order: 1;
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 80px rgba(240, 185, 11, 0.5),
+                            0 0 120px rgba(240, 185, 11, 0.3),
+                            0 0 160px rgba(240, 185, 11, 0.2);
+            }
+            50% { 
+                box-shadow: 0 0 100px rgba(240, 185, 11, 0.7),
+                            0 0 150px rgba(240, 185, 11, 0.5),
+                            0 0 200px rgba(240, 185, 11, 0.3);
+            }
+        }
+
+        @keyframes logo-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .featured-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: visible;
+            background: radial-gradient(circle at center, rgba(240, 185, 11, 0.15), transparent);
+            border: 5px solid var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 80px rgba(240, 185, 11, 0.5),
+                        0 0 120px rgba(240, 185, 11, 0.3),
+                        0 0 160px rgba(240, 185, 11, 0.2);
+            animation: logo-pulse 4s ease-in-out infinite, logo-float 6s ease-in-out infinite;
+            transition: all 0.5s ease;
+        }
+
+        .featured-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 3rem;
+            filter: drop-shadow(0 20px 40px rgba(240, 185, 11, 0.4));
+            transition: all 0.6s ease;
+        }
+
+        .featured-frame:hover {
+            transform: scale(1.05);
+            border-width: 6px;
+            box-shadow: 0 0 120px rgba(240, 185, 11, 0.8),
+                        0 0 180px rgba(240, 185, 11, 0.6),
+                        0 0 240px rgba(240, 185, 11, 0.4);
+        }
+
+        .featured-frame:hover img {
+            transform: scale(1.08);
+            filter: drop-shadow(0 25px 50px rgba(240, 185, 11, 0.6));
+        }
+
+        .featured-label {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            color: #000;
+            padding: 0.8rem 2.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(240, 185, 11, 0.5);
+            z-index: 10;
+        }
+
+        /* Feature Showcase Section */
+        .feature-showcase {
+            padding: 6rem 4rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .showcase-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 60px rgba(240, 185, 11, 0.4),
+                        0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
+        }
+
+        .showcase-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 80px rgba(240, 185, 11, 0.6),
+                        0 30px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .showcase-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .showcase-container:hover img {
+            transform: scale(1.03);
+        }
+
+        .showcase-badge {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            box-shadow: 0 8px 24px rgba(240, 185, 11, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .showcase-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(11, 14, 17, 0.95), transparent);
+            padding: 3rem 2rem 2rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .showcase-container:hover .showcase-info {
+            transform: translateY(0);
+        }
+
+        .showcase-info h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .showcase-info p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Float animation for badges */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                padding: 3rem 2rem;
+            }
+
+            .feature-showcase {
+                padding: 4rem 2rem;
+            }
+
+            .showcase-container {
+                max-width: 100%;
+            }
+
+            .showcase-badge {
+                font-size: 0.85rem;
+                padding: 0.8rem 1.5rem;
+                top: 1.5rem;
+                left: 1.5rem;
+            }
+
+            .showcase-info h3 {
+                font-size: 1.4rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-text {
+                padding-left: 0;
+                order: 2;
+            }
+
+            .featured-container {
+                order: 1;
+                max-width: 500px;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+                padding: 1.2rem;
+            }
+
+            .featured-container {
+                justify-self: center;
+                order: 1;
+                margin-bottom: 3rem;
+            }
+
+            .hero-text {
+                order: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 0.9rem;
+                padding: 1rem;
+            }
+
+            .showcase-badge {
+                font-size: 0.75rem;
+                padding: 0.6rem 1rem;
+                top: 1rem;
+                left: 1rem;
+            }
+
+            .showcase-info {
+                padding: 2rem 1.5rem 1.5rem;
+            }
+
+            .showcase-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .showcase-info p {
+                font-size: 0.9rem;
+            }
+
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--accent);
+            color: #000;
+        }
+
+    </style>
+</head>
+<body>
+    <section class="hero" id="featured">
+        <div class="hero-content">
+            <div class="featured-container">
+                <div class="featured-label">⬡ SBT TOKEN</div>
+                <div class="featured-frame">
+                    <img src="111.png" alt="SBT Token Logo">
+                </div>
+            </div>
+
+            <div class="hero-text">
+                <div class="subtitle">The Future of Meme Tokens</div>
+                <h1>SBT<br>Token</h1>
+                <p class="hero-description">CZ's "Giggle" White Paper details how he plans to develop "Soul Bound Tokens" - these tokens will be bound to an individual's soul.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-showcase">
+        <div class="showcase-container">
+            <div class="showcase-badge">🔥 Featured Meme</div>
+            <img src="1.jpg" alt="SBT Featured Content">
+            <div class="showcase-info">
+                <h3>The Original SBT Meme</h3>
+                <p>Explore the origin story of SBT - the core symbol of community culture</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add subtle parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+
+        // Image lazy loading fallback
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.background = '#1a1a1a';
+                this.alt = '图片加载中...';
+            });
+        });
+    </script>
+</body>
+</html>
